@@ -1,0 +1,168 @@
+import java.util.*;
+class tic
+{
+ void show(String a[][],int r)
+    {
+      System.out.println("_____________");
+        for(int i=0;i<r;i++)
+        {
+            for(int j=0;j<r;j++)
+            {
+               a[i][j]=" ";
+             System.out.print("| " +a[i][j] + " ");
+            }
+             System.out.println("|");
+            System.out.println("|___|___|___|");
+        }
+}
+
+void show_tic(String a[][], int r)
+{
+    System.out.println("_____________");
+        for(int i=0;i<r;i++)
+        {
+            for(int j=0;j<r;j++)
+            {
+            System.out.print("| " +a[i][j] + " ");
+            }
+             System.out.println("|");
+            System.out.println("|___|___|___|");
+        }
+}
+
+boolean rowvalid(String  a[][],int r) 
+{ 
+    int f=0;
+    for (int i=0;i<r;i++) 
+    { 
+        if (a[i][0].equals(a[i][1]) &&a[i][1].equals(a[i][2]) && a[i][0]!= " ") 
+           return true; 
+    } 
+    return false; 
+} 
+
+boolean colvalid(String  a[][],int r) 
+{ 
+    for (int i=0;i<r;i++) 
+    { 
+        if (a[0][i]==a[1][i] &&a[1][i]==a[2][i] && a[0][i] != " ") 
+            return true; 
+    } 
+    return false; 
+}
+
+boolean diagonalvalid(String  a[][],int r) 
+{ 
+  if(a[0][0]==a[1][1] && a[1][1]==a[2][2] && a[0][0] != " ") 
+    {
+     return true; 
+    } 
+    
+   if(a[0][2]==a[1][1] && a[1][1]==a[2][0] && a[1][1]!=" ") 
+   {
+       return true;
+   }
+   
+    return false; 
+}
+
+
+boolean valid(String a[][],int r)
+{
+    return (rowvalid(a,r) || colvalid(a,r) || diagonalvalid(a,r));
+}
+
+void won(String n)
+{
+    if(n=="0")
+    {
+        System.out.println("\n1 has won the game!");
+    }
+    else
+    {
+        System.out.println("\n0 has won the game!");
+    }
+   
+}
+
+}
+public class MyClass
+{
+    public static void main(String args[])
+    {
+        Scanner o=new Scanner(System.in);
+        tic ob=new tic();
+        int r=o.nextInt();
+        int x,y;
+        String n1,n2;
+        n2="1";
+        int move=0;
+        int j;
+        String a[][]=new String[r][r];
+        ob.show(a,r);
+        int i=0;
+        try
+        {
+       while(i<9 && ob.valid(a,r)== false && move!=r*r) 
+       { 
+        {
+         if(n2=="1")
+        {
+          j=i;
+        System.out.println("Enter position for "+n2);
+        x=o.nextInt();
+        y=o.nextInt();
+        if(a[x][y]!=" ")
+        {
+            System.out.println("Enter "+n2+" in another slot");
+            i=j;
+        }
+        else
+        {
+        a[x][y]="1";
+        move++;
+        }
+          ob.show_tic(a,r);
+          n2="0";
+         }
+       
+        else if(n2=="0")
+        {
+         j=i;
+        System.out.println("Enter position for "+n2);
+        x=o.nextInt();
+        y=o.nextInt();
+        if(a[x][y]!=" ")
+        {
+            System.out.println("Enter "+n2+" in another slot");
+            i=j;
+        }
+        else
+        {
+        a[x][y]="0";
+        move++;
+        }
+      ob.show_tic(a,r); 
+      n2="1";
+        }
+    }
+    i++;
+       }
+        
+        
+       if(ob.valid(a,r)==false && move==r*r)
+       {
+           System.out.println("\nIt's a Draw!");
+       }
+       
+       else if(ob.valid(a,r)==true)
+       {
+           ob.won(n2);
+       }
+        }
+        catch(Exception e)
+        {
+         System.out.println("Enter All other Positions.");   
+        }
+        }
+       }
